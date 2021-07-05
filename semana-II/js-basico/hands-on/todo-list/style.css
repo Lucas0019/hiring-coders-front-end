@@ -1,0 +1,25 @@
+body {
+  background: #e7e7e7;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  width: 3rem;
+}
+
+.input {
+  height: 2rem;
+  width: 45%; 
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.to-dos {
+  text-align: center;
+}
