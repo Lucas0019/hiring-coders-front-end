@@ -8,7 +8,7 @@ const Repositories = () => {
     let repositoriesName = localStorage.getItem("repositoriesName");
     repositoriesName = JSON.parse(repositoriesName);
     setRepositories(repositoriesName);
-    localStorage.clear();
+    // localStorage.clear();
   }, []);
 
   return (
@@ -19,6 +19,7 @@ const Repositories = () => {
           return <S.ListItem> Repositório {repository} </S.ListItem>;
         })}
       </S.List>
+      <S.LinkHome to="/">Voltar</S.LinkHome>
     </S.Container>
   );
 };
