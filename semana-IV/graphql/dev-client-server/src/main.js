@@ -1,7 +1,8 @@
 import { createServer } from "http";
 import { readFile } from "fs";
-import { resolve } from "path"
- 
+import { resolve } from "path";
+import { parse } from "querystring";
+
 const server = createServer((req, res) => {
   switch (req.url) {
     case "/status": {
@@ -21,24 +22,53 @@ const server = createServer((req, res) => {
     }
 
     case "/sign-in": {
-
-      const path = resolve(__dirname, './pages/sign-in.html')
+      const path = resolve(__dirname, "./pages/sign-in.html");
 
       readFile(path, (error, file) => {
         if (error) {
-          res.writeHead(500, 'Cant\'t process HTML file') 
+          res.writeHead(500, "Cant't process HTML file");
           res.end();
-          return 
+          return;
         }
 
-        res.writeHead(200)
-        res.write(file)
-        res.end()
+        res.writeHead(200);
+        res.write(file);
+        res.end();
       });
       break;
     }
 
+    case "/home": {
+      const path = resolve(__dirname, "./pages/home.html");
+
+      readFile(path, (error, file) => {
+        if (error) {
+          res.writeHead(500, "Cant't process HTML file");
+          res.end();
+          return;
+        }
+
+        res.writeHead(200);
+        res.write(file);
+        res.end();
+      });
+      break;
+    }
     case "/authenticate": {
+      let data = "";
+
+      req.on("data", (chunk) => {
+        data += chunk;
+      });
+
+      req.on("end", () => {
+        const params = parse(data);
+
+        res.writeHead(301, {
+          Location: "/home",
+        });
+        res.end();
+      });
       break;
     }
 
